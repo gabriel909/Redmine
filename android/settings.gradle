@@ -1,0 +1,3 @@
+rootProject.name = 'redmine_radix'
+
+include ':app'
