@@ -26,7 +26,24 @@ export default class extends Component {
             APIKey: ""
         },
 
-        actions: { }
+        actions: { 
+            login: async (usr, psw) => {
+                try {
+                    let result = await fetch("http://" + usr + ":" + psw + 
+                    "@redmine.radixeng.com.br/users/current.json");
+
+                    let json = await result.json();
+
+                    // console.log(json.user.api_key);
+
+                    this.setState({ store: { APIKey: json.user.api_key } });
+
+                } catch(e) {
+                    console.log(e);
+
+                }
+            }
+        }
     }
 
     render() {
