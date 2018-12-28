@@ -7,16 +7,9 @@
  */
 
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
-import { Consumer } from "../../Main";
-
-const HOCMagico = Component => props => (
-    <Consumer>{
-      ({ store, actions }) => (
-        <Component {...props} store={store} actions={actions} />
-      )}
-    </Consumer>
-);
+import { View, Button, TextInput, Text } from "react-native";
+import styles from "../../styles"
+import HOCMagico from "../../HOCs/Magico"
 
 class App extends Component {
     constructor(props) {
@@ -26,6 +19,11 @@ class App extends Component {
             username: "",
             password: ""
         };
+    }
+
+    async login() {
+        await this.props.actions.login(this.state.username, this.state.password);
+        this.props.navigation.navigate("Home");
     }
 
     render() {
@@ -44,39 +42,11 @@ class App extends Component {
                     autoCorrect={false}
                     onChangeText={password => this.setState({ password: password })} />
 
-                <Button onPress={ () => this.props.actions.login(this.state.username, this.state.password) } title="Login" />
+                <Button onPress={ () => this.login() } title="Login" />
+
             </View>
         );
     }
 }
 
 export default HOCMagico(App);
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#F5FCFF"
-    },
-
-    welcome: {
-        fontSize: 20,
-        textAlign: "center",
-        margin: 10
-    },
-
-    instructions: {
-        textAlign: "center",
-        color: "#333333",
-        marginBottom: 5
-    },
-
-    textInput: {
-        height: 20,
-        width: 200,
-        marginBottom: 15,
-        borderColor: "black",
-        borderWidth: 1
-    }
-});
