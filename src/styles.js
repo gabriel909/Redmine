@@ -9,23 +9,25 @@ export default styles = StyleSheet.create({
         backgroundColor: "#F5FCFF"
     },
 
-    welcome: {
-        fontSize: 20,
-        textAlign: "center",
-        margin: 10
+    innerContainer: {
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "center"
     },
 
-    instructions: {
-        textAlign: "center",
-        color: "#333333",
-        marginBottom: 5
+    title: {
+        fontSize: 30,
+        justifyContent: "flex-start",
+        margin: 40
     },
 
     textInput: {
-        height: 20,
+        height: 25,
         width: 200,
-        marginBottom: 15,
+        margin: 15,
         borderColor: "black",
-        borderWidth: 1
+        borderWidth: 1,
+        borderRadius: 10,
+        paddingLeft: 10
     }
 });

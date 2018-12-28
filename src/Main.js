@@ -7,24 +7,32 @@
  */
 
 import React, {Component, createContext} from 'react';
-import { createAppContainer, createStackNavigator } from "react-navigation"
+import { createAppContainer, createStackNavigator, createSwitchNavigator } from "react-navigation"
 import LoginScreen from "./screens/Login"
 import HomeScreen from "./screens/Home"
 import { Post } from "./services"
+import { AsyncStorage } from "react-native"
 
 export const { Provider, Consumer } = createContext({ });
 
 const stack = createStackNavigator({ 
     Login: {
         screen: LoginScreen
-    },
-
-    Home: {
-        screen : HomeScreen
     }
 });
 
-const AppContainer = createAppContainer(stack);
+const stackLogged = createStackNavigator({
+    Home: {
+        screen : HomeScreen
+    }
+})
+
+const switchStack = createSwitchNavigator({
+    stack,
+    stackLogged
+})
+
+const AppContainer = createAppContainer(switchStack);
 
 export default class extends Component {
     state = {
@@ -41,14 +49,17 @@ export default class extends Component {
 
                     let json = await result.json();
 
-                    console.log(json.user.firstname);
-
                     this.setState({ 
                         store: { 
                             APIKey: json.user.api_key,
                             name: json.user.firstname
                         } 
                     });
+
+                    await AsyncStorage.setItem("user", JSON.stringify({
+                        api_key: json.user.api_key, 
+                        name: json.user.firstname
+                    }));
 
                 } catch(e) {
                     console.log(e);
@@ -71,6 +82,10 @@ export default class extends Component {
                     console.log(e);
 
                 }
+            },
+
+            updateKey: key => {
+                this.setState({ store: { APIKey: key.api_key, name: key.name } })
             }
         }
     }

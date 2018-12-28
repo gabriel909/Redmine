@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from "react";
-import { View, Button, TextInput, Text } from "react-native";
+import { View, Button, TextInput, AsyncStorage } from "react-native";
 import styles from "../../styles"
 import HOCMagico from "../../HOCs/Magico"
 
@@ -19,6 +19,21 @@ class App extends Component {
             username: "",
             password: ""
         };
+    }
+
+    async componentDidMount() {
+        try {
+            let key = await AsyncStorage.getItem("user");
+            key = JSON.parse(key);
+
+            if(key !== null) {
+                this.props.actions.updateKey(key);
+                this.props.navigation.navigate("Home");
+            }
+        } catch(e) {
+            console.log(e);
+
+        }
     }
 
     async login() {
