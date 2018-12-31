@@ -13,6 +13,20 @@ class Home extends Component {
         };
     }
 
+    static navigationOptions = {
+        headetTitle: "Redmine",
+        headerRight: (
+            <Button
+                onPress={ () => console.log("Ola") }
+                title="Logout" />
+        )
+    };
+
+    async logout() {
+        await this.props.actions.logout();
+        this.props.navigation.navigate("Login");
+    }
+
     render() {
         return (
             <View style={ styles.innerContainer }>
@@ -33,6 +47,10 @@ class Home extends Component {
                 <Button 
                     onPress={ () => this.props.actions.time_entry(this.state.issue_id, this.state.hours) }
                     title="Lançar" />
+
+                <Button
+                    onPress={ () => this.logout() } 
+                    title="Logout" />
             </View>
         );
     }

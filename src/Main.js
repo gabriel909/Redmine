@@ -62,7 +62,7 @@ export default class extends Component {
                     }));
 
                 } catch(e) {
-                    console.log(e);
+                    throw new Error(e.message);
 
                 }
             },
@@ -78,6 +78,7 @@ export default class extends Component {
                     });
 
                     console.log(result);
+
                 } catch(e) {
                     console.log(e);
 
@@ -86,6 +87,11 @@ export default class extends Component {
 
             updateKey: key => {
                 this.setState({ store: { APIKey: key.api_key, name: key.name } })
+            },
+
+            logout: async () => {
+                this.setState({ store: { APIKey: "", name: "" } });
+                await AsyncStorage.setItem("user", "");
             }
         }
     }

@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from "react";
-import { View, Button, TextInput, AsyncStorage } from "react-native";
+import { View, Button, TextInput, AsyncStorage, Alert } from "react-native";
 import styles from "../../styles"
 import HOCMagico from "../../HOCs/Magico"
 
@@ -37,8 +37,14 @@ class App extends Component {
     }
 
     async login() {
-        await this.props.actions.login(this.state.username, this.state.password);
-        this.props.navigation.navigate("Home");
+        try {
+            await this.props.actions.login(this.state.username, this.state.password);
+            this.props.navigation.navigate("Home");
+
+        } catch(e) {
+            Alert.alert("Erro", "Login Inválido");
+
+        }
     }
 
     render() {
