@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, Button, TextInput } from "react-native";
+import { Text, View, Button, TextInput, Alert } from "react-native";
 import HOCMagico from "../../HOCs/Magico"
 import styles from "../../styles";
 
@@ -27,6 +27,17 @@ class Home extends Component {
         this.props.navigation.navigate("Login");
     }
 
+    async time_entry() {
+        try {
+            await this.props.actions.time_entry(this.state.issue_id, this.state.hours);
+            Alert.alert("Horas lançadas com sucesso!");
+
+        } catch(e) {
+            Alert.alert(e.message);
+
+        }
+    }
+
     render() {
         return (
             <View style={ styles.innerContainer }>
@@ -45,8 +56,12 @@ class Home extends Component {
                     placeholder="Horas" />
                 
                 <Button 
-                    onPress={ () => this.props.actions.time_entry(this.state.issue_id, this.state.hours) }
+                    onPress={ () => this.time_entry() }
                     title="Lançar" />
+
+                <Button 
+                    onPress={ () => this.props.navigation.navigate("Issues") }
+                    title="Pesquisar Tarefas" />
 
                 <Button
                     onPress={ () => this.logout() } 

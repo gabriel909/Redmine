@@ -42,7 +42,7 @@ class App extends Component {
             this.props.navigation.navigate("Home");
 
         } catch(e) {
-            Alert.alert("Erro", "Login Inválido");
+            Alert.alert("Erro", e.message);
 
         }
     }
