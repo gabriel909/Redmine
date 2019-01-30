@@ -60,6 +60,7 @@ export default class extends Component {
     async get_issue(issue_id) {
         try {
             let headers = { "X-Redmine-API-Key": this.state.store.APIKey };
+            console.log(urls.issue(issue_id));
             let result = await fetch(urls.issue(issue_id), headers);
 
             return result;
@@ -103,9 +104,10 @@ export default class extends Component {
             time_entry: async (issue_id, hours) => {
                 try {
                     let issue = await this.get_issue(issue_id);
-                    let json = issue.json();
+                    let json = await issue.json();
+
                     let message = "Deseja lançar " + hours + " horas na tarefa:\n" + 
-                    json.project.name + "\n" + json.subject + "?"
+                    json.issue.project.name + "\n" + json.issue.subject + "?"
 
                     Alert.alert("Atenção", message, [
                         {
