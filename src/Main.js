@@ -57,20 +57,6 @@ const urls = {
 }
 
 export default class extends Component {
-    async get_issue(issue_id) {
-        try {
-            let headers = { "X-Redmine-API-Key": this.state.store.APIKey };
-            console.log(urls.issue(issue_id));
-            let result = await fetch(urls.issue(issue_id), headers);
-
-            return result;
-    
-        } catch(e) {
-            throw new Error(e.message);
-    
-        }
-    }
-
     state = {
         store: {
             APIKey: "",
@@ -101,32 +87,34 @@ export default class extends Component {
                 }
             },
 
-            time_entry: async (issue_id, hours) => {
+            get_issue: async (issue_id) => {
                 try {
-                    let issue = await this.get_issue(issue_id);
-                    let json = await issue.json();
+                    let headers = { "X-Redmine-API-Key": this.state.store.APIKey };
+                    let result = await fetch(urls.issue(issue_id), headers);
+        
+                    return result;
+            
+                } catch(e) {
+                    throw new Error(e.message);
+            
+                }
+            },
 
-                    let message = "Deseja lançar " + hours + " horas na tarefa:\n" + 
-                    json.issue.project.name + "\n" + json.issue.subject + "?"
-
-                    Alert.alert("Atenção", message, [
-                        {
-                            text: "Cancelar",
-                            onPress: () => { }
-                        },
-                        {
-                            text: "Lançar",
-                            onPress: async () => {
-                                await Post(urls.time_entries, {
-                                    time_entry: {
-                                        key: this.state.store.APIKey,
-                                        issue_id: issue_id,
-                                        hours: hours
-                                    }
-                                });
-                            }
+            time_entry: async (issue_id, hours, date) => {
+                try {
+                    let arrayDate = date.split("/")
+                    let formatedData = arrayDate[2] + "-" + arrayDate[1] + "-" + arrayDate[0]
+                    console.log(formatedData)
+                    let res = await Post(urls.time_entries, {
+                        time_entry: {
+                            key: this.state.store.APIKey,
+                            issue_id: issue_id,
+                            spent_on: formatedData,
+                            hours: hours
                         }
-                    ]);
+                    });
+
+                    console.log(res);
 
                 } catch(e) {    
                     throw new Error(e.message);
