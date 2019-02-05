@@ -44,7 +44,7 @@ const urls = {
     issue: (issue_id) => {
         var urlIssue = "http://" + url + "/issues"
 
-        if(issue_id !== null) {
+        if(issue_id !== undefined) {
             urlIssue += "/" + issue_id + ".json";
 
             return urlIssue;
@@ -55,6 +55,8 @@ const urls = {
     login: (usr, psw) => { return "http://" + usr + ":" + psw + "@" + url + "/users/current.json"; },
     time_entries: "http://" + url + "/time_entries.json"
 }
+
+function handleError(error) { throw new Error(error) }
 
 export default class extends Component {
     state = {
@@ -82,7 +84,7 @@ export default class extends Component {
                     }));
 
                 } catch(e) {
-                    throw new Error(e.message);
+                    handleError(e.message)
 
                 }
             },
@@ -95,7 +97,7 @@ export default class extends Component {
                     return result;
             
                 } catch(e) {
-                    throw new Error(e.message);
+                    handleError(e.message)
             
                 }
             },
@@ -104,20 +106,20 @@ export default class extends Component {
                 try {
                     let arrayDate = date.split("/")
                     let formatedData = arrayDate[2] + "-" + arrayDate[1] + "-" + arrayDate[0]
-                    console.log(formatedData)
-                    let res = await Post(urls.time_entries, {
-                        time_entry: {
-                            key: this.state.store.APIKey,
-                            issue_id: issue_id,
-                            spent_on: formatedData,
-                            hours: hours
-                        }
-                    });
+                    let time_entry = {
+                        key: this.state.store.APIKey,
+                        issue_id: issue_id,
+                        hours: hours
+                    }
 
-                    console.log(res);
+                    if(date !== "") { time_entry.spent_on = formatedData }
 
-                } catch(e) {    
-                    throw new Error(e.message);
+                    let res = await Post(urls.time_entries, { time_entry: time_entry });
+
+                    if(res.errors !== null) { handleError(res.errors[0]) }
+
+                } catch(e) {
+                    handleError(e.message)
 
                 }
             },
@@ -126,9 +128,12 @@ export default class extends Component {
                 try {
                     let headers = { "X-Redmine-API-Key": this.state.store.APIKey };
                     let result = await fetch(urls.issue(), headers)
+                    console.log(urls.issue())
+
+                    console.log(result)
 
                 } catch(e) {
-                    throw new Error(e.message);
+                    handleError(e.message)
 
                 }
             },

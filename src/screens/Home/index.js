@@ -50,9 +50,20 @@ class Home extends Component {
                 {
                     text: "Lançar",
                     onPress: async () => { 
-                        await this.props.actions.time_entry(this.state.issue_id, this.state.hours, this.state.date);
-                        Alert.alert("Horas lançadas com sucesso!");
-                        this.clear_all();
+                        try {
+                            await this.props.actions.time_entry(
+                                this.state.issue_id, 
+                                this.state.hours, 
+                                this.state.date
+                            );
+
+                            Alert.alert("Horas lançadas com sucesso!");
+                            this.clear_all();
+
+                        } catch(e) {
+                            Alert.alert(e.message)
+
+                        }
                     }
                 }
             ]);
