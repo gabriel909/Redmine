@@ -8,10 +8,17 @@ class Profile extends Component {
         super(props);
     }
 
+    logout() {
+        this.props.actions.logout()
+        this.props.navigation.navigate("Login") 
+    }
+
     render() {
         return (
-            <View>
-                <Text>Profile</Text>
+            <View style={ styles.innerContainer }>
+                <TouchableOpacity onPress={ () => this.logout() } style={ styles.opacity }>
+                    <Text style={ styles.purpleBtn }>Sair</Text>
+                </TouchableOpacity>
             </View>
         );
     }

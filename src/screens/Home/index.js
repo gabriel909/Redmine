@@ -63,7 +63,9 @@ class Home extends Component {
     render() {
         return (
             <View style={ styles.innerContainer }>
-                <Text style={ styles.title }>Olá, { this.props.store.name }</Text>
+                <Text style={ styles.title }>Olá, 
+                    <Text style={ styles.blackTitle }> { this.props.store.name }</Text>
+                </Text>
 
                 <TextInput 
                     ref={ input => { this.id_input = input } }

@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from "react";
-import { View, Button, TextInput, AsyncStorage, Alert } from "react-native";
+import { View, TouchableOpacity, Text, TextInput, AsyncStorage, Alert } from "react-native";
 import styles from "../../styles"
 import HOCMagico from "../../HOCs/Magico"
 
@@ -49,7 +49,7 @@ class App extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.innerContainer}>
                 <TextInput
                     style={styles.textInput}
                     autoCapitalize="none"
@@ -63,7 +63,9 @@ class App extends Component {
                     autoCorrect={false}
                     onChangeText={password => this.setState({ password: password })} />
 
-                <Button onPress={ () => this.login() } title="Login" />
+                <TouchableOpacity onPress={ () => this.login() } style={ styles.opacity }>
+                    <Text style={ styles.purpleBtn }>Login</Text>
+                </TouchableOpacity>
 
             </View>
         );

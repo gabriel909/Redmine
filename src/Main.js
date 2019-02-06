@@ -124,6 +124,33 @@ export default class extends Component {
 
                     if(res.errors !== undefined) { handleError(res.errors[0]) }
 
+                } catch(e) {    
+                    handleError(e.message)
+
+                }
+            },
+
+            get_time_entries: async () => {
+                try {
+                    let res = await fetch(urls.time_entries + "?user_id=me")
+                    
+                    res.json().map(async function(time_entry) {
+                        try {
+                            let issue_info = await this.get_issue(time_entry.issue.id)
+                            let res_json = await issue_info.json()
+
+                            return {
+                                issue_id: time_entry.issue.id,
+                                hours: time_entry.hours,
+                                name: res_json.issue.project.name,
+                                subject: res_json.issue.subject
+                            }
+                        } catch(e) {
+                            handleError(e.message)
+
+                        }
+                    });
+
                 } catch(e) {
                     handleError(e.message)
 

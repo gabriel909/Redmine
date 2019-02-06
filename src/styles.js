@@ -13,7 +13,7 @@ export default styles = StyleSheet.create({
 
     innerContainer: {
         flex: 1,
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignItems: "center",
         backgroundColor: purple
     },
@@ -22,8 +22,12 @@ export default styles = StyleSheet.create({
         color: "#FFFFFF",
         fontSize: 30,
         justifyContent: "flex-start",
-        marginTop: 150,
         marginBottom: 40
+    },
+
+    blackTitle: {
+        color: "#C2CE3E",
+        fontWeight: "bold"
     },
 
     textInput: {
