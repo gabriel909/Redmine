@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, Button, TextInput, Alert } from "react-native";
+import { Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
 import HOCMagico from "../../HOCs/Magico"
 import styles from "../../styles";
 
@@ -12,20 +12,6 @@ class Home extends Component {
             hours: "",
             date: ""
         };
-    }
-
-    static navigationOptions = {
-        headetTitle: "Redmine",
-        headerRight: (
-            <Button
-                onPress={ () => console.log("Ola") }
-                title="Logout" />
-        )
-    };
-
-    async logout() {
-        await this.props.actions.logout();
-        this.props.navigation.navigate("Login");
     }
 
     clear_all() {
@@ -100,17 +86,9 @@ class Home extends Component {
                     onChangeText={ date => { this.setState({ date: date }) } } 
                     placeholder="Data (Opcional)" />
                 
-                <Button 
-                    onPress={ () => this.time_entry() }
-                    title="Lançar" />
-
-                <Button 
-                    onPress={ () => this.props.navigation.navigate("Issues") }
-                    title="Pesquisar Tarefas" />
-
-                <Button
-                    onPress={ () => this.logout() } 
-                    title="Logout" />
+                <TouchableOpacity onPress={ () => this.time_entry() } style={ styles.opacity }>
+                    <Text style={ styles.purpleBtn }>Lançar</Text>
+                </TouchableOpacity>
             </View>
         );
     }

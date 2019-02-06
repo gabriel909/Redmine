@@ -7,12 +7,13 @@
  */
 
 import React, { Component, createContext } from 'react';
-import { createAppContainer, createStackNavigator, createSwitchNavigator } from "react-navigation"
+import { createAppContainer, createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from "react-navigation"
 import LoginScreen from "./screens/Login"
 import HomeScreen from "./screens/Home"
 import IssuesScreen from "./screens/Issues"
+import ProfileScreen from "./screens/Profile"
 import { Post } from "./services"
-import { AsyncStorage, Alert } from "react-native"
+import { AsyncStorage, Alert, Button } from "react-native"
 
 export const { Provider, Consumer } = createContext({ });
 
@@ -22,14 +23,19 @@ const stack = createStackNavigator({
     }
 });
 
-const stackLogged = createStackNavigator({
-    Home: {
-        screen : HomeScreen
+const stackLogged = createBottomTabNavigator({
+    Issues: {
+        screen: IssuesScreen
     },
 
-    Issues: {
-        screen : IssuesScreen
-    }
+    Home: {
+        screen: HomeScreen
+    },
+    
+    Profile: {
+        screen: ProfileScreen
+    },
+    
 })
 
 const switchStack = createSwitchNavigator({
@@ -116,7 +122,7 @@ export default class extends Component {
 
                     let res = await Post(urls.time_entries, { time_entry: time_entry });
 
-                    if(res.errors !== null) { handleError(res.errors[0]) }
+                    if(res.errors !== undefined) { handleError(res.errors[0]) }
 
                 } catch(e) {
                     handleError(e.message)
@@ -128,10 +134,8 @@ export default class extends Component {
                 try {
                     let headers = { "X-Redmine-API-Key": this.state.store.APIKey };
                     let result = await fetch(urls.issue(), headers)
-                    console.log(urls.issue())
 
-                    console.log(result)
-
+                    return result
                 } catch(e) {
                     handleError(e.message)
 

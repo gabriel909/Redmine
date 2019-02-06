@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
+purple = "#30154A"
+
 export default styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -12,22 +14,39 @@ export default styles = StyleSheet.create({
     innerContainer: {
         flex: 1,
         justifyContent: "flex-start",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: purple
     },
 
     title: {
+        color: "#FFFFFF",
         fontSize: 30,
         justifyContent: "flex-start",
-        margin: 40
+        marginTop: 150,
+        marginBottom: 40
     },
 
     textInput: {
         height: 25,
         width: 200,
-        margin: 15,
-        borderColor: "black",
-        borderWidth: 1,
-        borderRadius: 10,
+        margin: 5,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 5,
         paddingLeft: 10
+    },
+
+    purpleBtn: {
+        width: 150,
+        height: 30,
+        color: purple,
+        fontSize: 20,
+        textAlign: "center",
+        paddingTop: 2
+    },
+
+    opacity: {
+        backgroundColor: "#FFFFFF",
+        borderRadius: 50,
+        marginTop: 20,
     }
 });
