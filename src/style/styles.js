@@ -1,56 +1,53 @@
-import React from "react";
 import { StyleSheet } from "react-native";
-
-purple = "#30154A"
+import Colors from "./colors"
 
 export default styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#F5FCFF"
-    },
-
     innerContainer: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: purple
+        backgroundColor: Colors.purple
     },
 
     title: {
-        color: "#FFFFFF",
+        color: Colors.white,
         fontSize: 30,
         justifyContent: "flex-start",
         marginBottom: 40
     },
 
-    blackTitle: {
-        color: "#C2CE3E",
+    greenTitle: {
+        color: Colors.green,
         fontWeight: "bold"
     },
 
     textInput: {
         height: 25,
-        width: 200,
+        width: 250,
         margin: 5,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: Colors.white,
         borderRadius: 5,
         paddingLeft: 10
     },
 
-    purpleBtn: {
-        width: 150,
+    whiteBtn: {
+        width: 185,
         height: 30,
-        color: purple,
+        color: Colors.purple,
         fontSize: 20,
         textAlign: "center",
         paddingTop: 2
     },
 
     opacity: {
-        backgroundColor: "#FFFFFF",
+        backgroundColor: Colors.white,
         borderRadius: 50,
         marginTop: 20,
+    },
+
+    plusBtn: {
+        height: 100,
+        backgroundColor: Colors.white,
+        borderRadius: 50
     }
 });

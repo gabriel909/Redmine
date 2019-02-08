@@ -13,7 +13,9 @@ import HomeScreen from "./screens/Home"
 import IssuesScreen from "./screens/Issues"
 import ProfileScreen from "./screens/Profile"
 import { Post } from "./services"
-import { AsyncStorage, Alert, Button } from "react-native"
+import { AsyncStorage } from "react-native"
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Colors from "../src/style/colors";
 
 export const { Provider, Consumer } = createContext({ });
 
@@ -35,7 +37,56 @@ const stackLogged = createBottomTabNavigator({
     Profile: {
         screen: ProfileScreen
     },
-    
+},
+{
+    defaultNavigationOptions: ({ navigation }) => ({
+        activeTintColor: Colors.purple,
+        tabBarIcon: ({ focused }) => {
+            const { routeName } = navigation.state
+            let iconName;
+            let iconColor = focused ? Colors.purple : "gray"
+            let RIcon = () => {
+                if (routeName === 'Home') {
+                    return ( 
+                        <Ionicons 
+                            style={ styles.plusBtn }
+                            color={ Colors.green }
+                            name={ iconName }
+                            size={ 80 } /> 
+                    )
+
+                } else {
+                    return (
+                        <Ionicons 
+                            name={ iconName }
+                            color={ iconColor }
+                            size={ 30 }/>
+                    )
+                }
+            }
+
+            switch (routeName) {
+                case 'Home': 
+                    iconName = "ios-add-circle";
+                    break;
+
+                case 'Issues':
+                    iconName = "ios-search";
+                    break;
+
+                case 'Profile':
+                    iconName = "ios-person"
+                    break;
+                
+                default: break;
+            }
+
+            return RIcon()
+        }
+    }),
+    tabBarOptions: {
+        activeTintColor: Colors.purple
+    }
 })
 
 const switchStack = createSwitchNavigator({

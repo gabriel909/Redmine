@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
 import HOCMagico from "../../HOCs/Magico"
-import styles from "../../styles";
+import styles from "../../style/styles";
+import WhiteBtn from "../../components/WhiteBtn/WhiteBtn";
 
 class Home extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class Home extends Component {
         this.date_input.clear();
     }
 
-    async time_entry() {
+    async time_entry(again) {
         try {
             let issue = await this.props.actions.get_issue(this.state.issue_id);
             let json = await issue.json();
@@ -44,7 +45,7 @@ class Home extends Component {
                             );
 
                             Alert.alert("Horas lançadas com sucesso!");
-                            this.clear_all();
+                            if(!again) { this.clear_all(); }
 
                         } catch(e) {
                             Alert.alert(e.message)
@@ -64,7 +65,7 @@ class Home extends Component {
         return (
             <View style={ styles.innerContainer }>
                 <Text style={ styles.title }>Olá, 
-                    <Text style={ styles.blackTitle }> { this.props.store.name }</Text>
+                    <Text style={ styles.greenTitle }> { this.props.store.name }</Text>
                 </Text>
 
                 <TextInput 
@@ -88,9 +89,9 @@ class Home extends Component {
                     onChangeText={ date => { this.setState({ date: date }) } } 
                     placeholder="Data (Opcional)" />
                 
-                <TouchableOpacity onPress={ () => this.time_entry() } style={ styles.opacity }>
-                    <Text style={ styles.purpleBtn }>Lançar</Text>
-                </TouchableOpacity>
+                <WhiteBtn onPress={ () => this.time_entry(false) } text="Lançar"/>
+
+                <WhiteBtn onPress={ () => this.time_entry(true) } text="Lançar e Continuar"/>
             </View>
         );
     }

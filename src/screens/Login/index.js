@@ -7,9 +7,10 @@
  */
 
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, TextInput, AsyncStorage, Alert } from "react-native";
-import styles from "../../styles"
+import { View, TextInput, AsyncStorage, Alert } from "react-native";
+import styles from "../../style/styles"
 import HOCMagico from "../../HOCs/Magico"
+import WhiteBtn from "../../components/WhiteBtn/WhiteBtn";
 
 class App extends Component {
     constructor(props) {
@@ -63,10 +64,7 @@ class App extends Component {
                     autoCorrect={false}
                     onChangeText={password => this.setState({ password: password })} />
 
-                <TouchableOpacity onPress={ () => this.login() } style={ styles.opacity }>
-                    <Text style={ styles.purpleBtn }>Login</Text>
-                </TouchableOpacity>
-
+                <WhiteBtn onPress={ () => this.login() } text="Login"/>
             </View>
         );
     }

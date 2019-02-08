@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
+import WhiteBtn from "../../components/WhiteBtn/WhiteBtn"
 import HOCMagico from "../../HOCs/Magico"
-import styles from "../../styles";
+import styles from "../../style/styles";
 
 class Profile extends Component {
     constructor(props) { 
@@ -16,9 +17,7 @@ class Profile extends Component {
     render() {
         return (
             <View style={ styles.innerContainer }>
-                <TouchableOpacity onPress={ () => this.logout() } style={ styles.opacity }>
-                    <Text style={ styles.purpleBtn }>Sair</Text>
-                </TouchableOpacity>
+                <WhiteBtn onPress={ () => this.logout() } text="Sair"/>
             </View>
         );
     }

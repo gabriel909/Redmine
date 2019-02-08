@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { Text, View, Button, TextInput } from "react-native";
 import HOCMagico from "../../HOCs/Magico"
-import styles from "../../styles";
+import styles from "../../style/styles";
+import WhiteBtn from "../../components/WhiteBtn/WhiteBtn";
 
 class Issues extends Component {
     constructor(props) { super(props); }
 
     async get_issues() {
         try {
-            await this.props.actions.get_issues()
+            let res = await this.props.actions.get_issues()
 
         } catch(e) {
             Alert.alert(e.message);
@@ -19,10 +20,7 @@ class Issues extends Component {
     render() {
         return (
             <View style={ styles.innerContainer }>
-                <Button 
-                    onPress={ () => { this.get_issues() } } 
-                    title="Get Horas"/>
-                
+                <WhiteBtn onPress={ () => { this.get_issues() } } text="Get Horas"/>
             </View>
         )
     }
