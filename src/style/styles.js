@@ -47,7 +47,8 @@ export default styles = StyleSheet.create({
 
     plusBtn: {
         height: 100,
-        backgroundColor: Colors.white,
-        borderRadius: 50
+        borderRadius: 100, 
+        backgroundColor: Colors.white, 
+        height: 100 
     }
 });

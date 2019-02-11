@@ -13,7 +13,7 @@ import HomeScreen from "./screens/Home"
 import IssuesScreen from "./screens/Issues"
 import ProfileScreen from "./screens/Profile"
 import { Post } from "./services"
-import { AsyncStorage } from "react-native"
+import { AsyncStorage, View } from "react-native"
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from "../src/style/colors";
 
@@ -27,15 +27,18 @@ const stack = createStackNavigator({
 
 const stackLogged = createBottomTabNavigator({
     Issues: {
-        screen: IssuesScreen
+        screen: IssuesScreen,
+        navigationOptions: { title: "" }
     },
 
     Home: {
-        screen: HomeScreen
+        screen: HomeScreen,
+        navigationOptions: { title: "" }
     },
     
     Profile: {
-        screen: ProfileScreen
+        screen: ProfileScreen,
+        navigationOptions: { title: "" }
     },
 },
 {
@@ -48,19 +51,21 @@ const stackLogged = createBottomTabNavigator({
             let RIcon = () => {
                 if (routeName === 'Home') {
                     return ( 
-                        <Ionicons 
-                            style={ styles.plusBtn }
-                            color={ Colors.green }
-                            name={ iconName }
-                            size={ 80 } /> 
+                        <View style={ styles.plusBtn }>
+                            <Ionicons
+                                color={ Colors.green }
+                                name={ iconName }
+                                size={ 100 } /> 
+                        </View>
                     )
 
                 } else {
                     return (
                         <Ionicons 
+                            style={{ height: 40 }}
                             name={ iconName }
                             color={ iconColor }
-                            size={ 30 }/>
+                            size={ 45 }/>
                     )
                 }
             }
@@ -149,6 +154,7 @@ export default class extends Component {
             get_issue: async (issue_id) => {
                 try {
                     let headers = { "X-Redmine-API-Key": this.state.store.APIKey };
+                    alert(urls.issue(issue_id))
                     let result = await fetch(urls.issue(issue_id), headers);
         
                     return result;
@@ -163,6 +169,7 @@ export default class extends Component {
                 try {
                     let arrayDate = date.split("/")
                     let formatedData = arrayDate[2] + "-" + arrayDate[1] + "-" + arrayDate[0]
+
                     let time_entry = {
                         key: this.state.store.APIKey,
                         issue_id: issue_id,
@@ -170,9 +177,7 @@ export default class extends Component {
                     }
 
                     if(date !== "") { time_entry.spent_on = formatedData }
-
                     let res = await Post(urls.time_entries, { time_entry: time_entry });
-
                     if(res.errors !== undefined) { handleError(res.errors[0]) }
 
                 } catch(e) {    
@@ -221,6 +226,7 @@ export default class extends Component {
             },
 
             updateKey: key => {
+                alert(key.api_key);
                 this.setState({ store: { APIKey: key.api_key, name: key.name } })
             },
 
