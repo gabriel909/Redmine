@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
 import HOCMagico from "../../HOCs/Magico"
 import styles from "../../style/styles";
 import WhiteBtn from "../../components/WhiteBtn/WhiteBtn";
+import GreenIndicator from "../../components/GreenIndicator/GreenIndicator";
 
 class Home extends Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class Home extends Component {
         this.state = {
             issue_id: "",
             hours: "",
-            date: ""
+            date: "",
+            animating: false,
         };
     }
 
@@ -23,6 +25,7 @@ class Home extends Component {
 
     async time_entry(again) {
         try {
+            this.setState({ animating: true })
             let issue = await this.props.actions.get_issue(this.state.issue_id);
             let json = await issue.json();
 
@@ -45,10 +48,12 @@ class Home extends Component {
                             );
 
                             Alert.alert("Horas lançadas com sucesso!");
+                            this.setState({ animating: false })
                             if(!again) { this.clear_all(); }
 
                         } catch(e) {
                             Alert.alert(e.message)
+                            this.setState({ animating: false })
 
                         }
                     }
@@ -57,6 +62,7 @@ class Home extends Component {
 
         } catch(e) {
             Alert.alert(e.message);
+            this.setState({ animating: false })
 
         }
     }
@@ -92,6 +98,10 @@ class Home extends Component {
                 <WhiteBtn onPress={ () => this.time_entry(false) } text="Lançar"/>
 
                 <WhiteBtn onPress={ () => this.time_entry(true) } text="Lançar e Continuar"/>
+
+                {this.state.animating &&
+                    <GreenIndicator animating={ this.state.animating } />
+                }
             </View>
         );
     }

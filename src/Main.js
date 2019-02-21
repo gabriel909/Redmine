@@ -62,10 +62,10 @@ const stackLogged = createBottomTabNavigator({
                 } else {
                     return (
                         <Ionicons 
-                            style={{ height: 40 }}
+                            style={{ height: 45 }}
                             name={ iconName }
                             color={ iconColor }
-                            size={ 45 }/>
+                            size={ 50 }/>
                     )
                 }
             }
@@ -154,7 +154,6 @@ export default class extends Component {
             get_issue: async (issue_id) => {
                 try {
                     let headers = { "X-Redmine-API-Key": this.state.store.APIKey };
-                    alert(urls.issue(issue_id))
                     let result = await fetch(urls.issue(issue_id), headers);
         
                     return result;
@@ -226,7 +225,6 @@ export default class extends Component {
             },
 
             updateKey: key => {
-                alert(key.api_key);
                 this.setState({ store: { APIKey: key.api_key, name: key.name } })
             },
 

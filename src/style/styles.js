@@ -46,9 +46,19 @@ export default styles = StyleSheet.create({
     },
 
     plusBtn: {
-        height: 100,
         borderRadius: 100, 
-        backgroundColor: Colors.white, 
-        height: 100 
-    }
+        // backgroundColor: Colors.white, 
+        height: 85
+    },
+
+    loading: {
+        position: 'absolute',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.lightGray,
+        opacity: 0.95,
+        height: 80,
+        width: 80,
+    },
 });

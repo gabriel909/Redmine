@@ -7,10 +7,12 @@
  */
 
 import React, { Component } from "react";
-import { View, TextInput, AsyncStorage, Alert } from "react-native";
+import { View, TextInput, AsyncStorage, Alert, ActivityIndicator } from "react-native";
 import styles from "../../style/styles"
 import HOCMagico from "../../HOCs/Magico"
 import WhiteBtn from "../../components/WhiteBtn/WhiteBtn";
+import Colors from "../../style/colors";
+import GreenIndicator from "../../components/GreenIndicator/GreenIndicator";
 
 class App extends Component {
     constructor(props) {
@@ -18,7 +20,8 @@ class App extends Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            animating: false,
         };
     }
 
@@ -39,10 +42,12 @@ class App extends Component {
 
     async login() {
         try {
+            this.setState({ animating: true })
             await this.props.actions.login(this.state.username, this.state.password);
             this.props.navigation.navigate("Home");
 
         } catch(e) {
+            this.setState({ animating: false })
             Alert.alert("Erro", e.message);
 
         }
@@ -65,6 +70,10 @@ class App extends Component {
                     onChangeText={password => this.setState({ password: password })} />
 
                 <WhiteBtn onPress={ () => this.login() } text="Login"/>
+
+                {this.state.animating &&
+                    <GreenIndicator animating={ this.state.animating } />
+                }
             </View>
         );
     }
