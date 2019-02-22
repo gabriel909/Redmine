@@ -187,24 +187,31 @@ export default class extends Component {
 
             get_time_entries: async () => {
                 try {
-                    let res = await fetch(urls.time_entries + "?user_id=me")
+                    let headers = { "X-Redmine-API-Key": this.state.store.APIKey }
+                    let res = await fetch(urls.time_entries + "?user_id=me", headers)
+                    let res_json = await res.json()
                     
-                    res.json().map(async function(time_entry) {
+                    var array = []
+                    res_json.time_entries.forEach(async (time_entry) => {
                         try {
-                            let issue_info = await this.get_issue(time_entry.issue.id)
+                            let issue_info = await this.state.actions.get_issue(time_entry.issue.id)
                             let res_json = await issue_info.json()
 
-                            return {
+                            array.push({
                                 issue_id: time_entry.issue.id,
                                 hours: time_entry.hours,
                                 name: res_json.issue.project.name,
                                 subject: res_json.issue.subject
-                            }
+                            })
+
                         } catch(e) {
                             handleError(e.message)
 
                         }
                     });
+
+                    console.log(array[0])
+                    return array
 
                 } catch(e) {
                     handleError(e.message)

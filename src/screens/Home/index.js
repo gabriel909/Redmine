@@ -71,7 +71,7 @@ class Home extends Component {
         return (
             <View style={ styles.innerContainer }>
                 <Text style={ styles.title }>Olá, 
-                    <Text style={ styles.greenTitle }> { this.props.store.name }</Text>
+                    <Text style={ styles.greenTitle }> { this.props.store.name }.</Text>
                 </Text>
 
                 <TextInput 

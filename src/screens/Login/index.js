@@ -7,11 +7,10 @@
  */
 
 import React, { Component } from "react";
-import { View, TextInput, AsyncStorage, Alert, ActivityIndicator } from "react-native";
+import { View, TextInput, AsyncStorage, Alert } from "react-native";
 import styles from "../../style/styles"
 import HOCMagico from "../../HOCs/Magico"
 import WhiteBtn from "../../components/WhiteBtn/WhiteBtn";
-import Colors from "../../style/colors";
 import GreenIndicator from "../../components/GreenIndicator/GreenIndicator";
 
 class App extends Component {
