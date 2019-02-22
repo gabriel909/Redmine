@@ -35,7 +35,7 @@ class Home extends Component {
             Alert.alert("Atenção", message, [
                 {
                     text: "Cancelar",
-                    onPress: () => { }
+                    onPress: () => { this.setState({ animating: false }) }
                 },
                 {
                     text: "Lançar",

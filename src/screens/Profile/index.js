@@ -19,7 +19,7 @@ class Profile extends Component {
     async componentDidMount() {
         try {
             this.dataSource = await this.props.actions.get_time_entries();
-            console.log(Object.keys(this.dataSource))
+            console.log(this.dataSource)
 
         } catch(e) {
             alert(e.message);
