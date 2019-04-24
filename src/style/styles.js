@@ -22,7 +22,7 @@ export default styles = StyleSheet.create({
     },
 
     textInput: {
-        height: 25,
+        height: 40,
         width: 250,
         margin: 5,
         backgroundColor: Colors.white,

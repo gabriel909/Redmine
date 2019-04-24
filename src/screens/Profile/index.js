@@ -6,6 +6,7 @@ import styles from "../../style/styles";
 
 class Profile extends Component {
     dataSource = [];
+    dt = ["Item 1", "Item 2"]
 
     constructor(props) { 
         super(props);
@@ -31,9 +32,9 @@ class Profile extends Component {
         return (
             <View style={ styles.innerContainer }>
                 <FlatList
-                    data={ this.dataSource }
+                    data={ this.dt }
                     renderItem={ ({ item }) => 
-                        <Text>{ item.subject } pp</Text>
+                        <Text style={{ color: "white" }}>{ item } pp</Text>
                     } />
 
                 <WhiteBtn onPress={ () => this.logout() } text="Sair"/>

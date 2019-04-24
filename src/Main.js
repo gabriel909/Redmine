@@ -128,10 +128,10 @@ export default class extends Component {
         },
 
         actions: { 
-            login: async (usr, psw) => {
+            login: async (usr, psw) => {    
                 try {
                     let result = await fetch(urls.login(usr, psw));
-                    let json = await result.json();
+                    let json = await result.json()
 
                     this.setState({ 
                         store: { 
@@ -146,6 +146,7 @@ export default class extends Component {
                     }));
 
                 } catch(e) {
+                    console.log(e.message);
                     handleError(e.message)
 
                 }
@@ -225,6 +226,7 @@ export default class extends Component {
                     let result = await fetch(urls.issue(), headers)
 
                     return result
+                    
                 } catch(e) {
                     handleError(e.message)
 
