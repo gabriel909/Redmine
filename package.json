@@ -7,7 +7,8 @@
     "test": "jest",
     "ios": "react-native run-ios --simulator=\"iPhone 8\"",
     "reset": "yarn start -- --reset-cache",
-    "android": "react-native run-android"
+    "android": "react-native run-android",
+    "android-menu": "adb shell input keyevent 82"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",

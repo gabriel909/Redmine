@@ -59,6 +59,7 @@ class App extends Component {
                     style={styles.textInput}
                     autoCapitalize="none"
                     autoCorrect={false}
+                    placeholder="Usuário"
                     onChangeText={username => this.setState({ username: username })} />
 
                 <TextInput
@@ -66,6 +67,7 @@ class App extends Component {
                     secureTextEntry={true}
                     autoCapitalize="none"
                     autoCorrect={false}
+                    placeholder="Senha"
                     onChangeText={password => this.setState({ password: password })} />
 
                 <WhiteBtn onPress={ () => this.login() } text="Login"/>
